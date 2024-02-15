@@ -1,0 +1,22 @@
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar  # If using Maven Wrapper
+
+# IDE-specific files
+*.log
+*.tmp
+*.tmp.*
+*.bak
+*.swp
+*~
+
+# Compiled files
+*.class
+
+# Dependency directories
+lib/
