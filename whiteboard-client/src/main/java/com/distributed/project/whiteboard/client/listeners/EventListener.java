@@ -270,8 +270,8 @@ public class EventListener implements Runnable {
 		LOGGER.info("New user added - {}", request.getSelectedUser());
 
 		// If added user is the current user
-		if (request.getSelectedUser().getClientUserName()
-				.equalsIgnoreCase(whiteboardClient.getUserInfo().getClientUserName())) {
+		if (request.getSelectedUser().getClientUID()
+				.equals(whiteboardClient.getUserInfo().getClientUID())) {
 			// Setting the userInfo global variable
 			whiteboardClient.setUserInfo(request.getSelectedUser());
 
@@ -342,8 +342,8 @@ public class EventListener implements Runnable {
 		LOGGER.info("User kicked by manager - {}", request.getSelectedUser());
 
 		// If kicked user is the current user
-		if (request.getSelectedUser().getClientUserName()
-				.equalsIgnoreCase(whiteboardClient.getUserInfo().getClientUserName())) {
+		if (request.getSelectedUser().getClientUID()
+				.equals(whiteboardClient.getUserInfo().getClientUID())) {
 			// Creating the user exit event, to remove connection from the server end
 			ActionMessageDto userExitEvent = new ActionMessageDto(request.getSelectedUser(), Constants.ACTION_EXIT);
 
