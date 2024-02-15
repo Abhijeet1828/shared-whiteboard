@@ -82,7 +82,7 @@ The server applications make use of several utility classes which have reusable 
 code look cleaner and more understandable for further refactoring.TypeConversionutils.javafile
 helps in converting the requests sent over the network to relevant DTOs for further use. The server
 also makes use of frequently used constants by accessing theConstants.javafile.
-
+![](images/Aspose.Words.2f3f1dc5-86a6-43ca-9989-9b74b9f623bd.005.jpeg)
 ```
 Figure 1: Whiteboard Server Architecture
 ```
@@ -142,14 +142,11 @@ ing the events received by the server, holding constants, and encryption and dec
 For processing the events received by the server and converting them into relevant DTOs, theType-
 ConversionUtils.javafile is used, it is also used for converting the DTOs back to strings to send
 them over the network. TheAESUtils.javafile is used to encrypt and decrypt chat messages sent
-over the network using the AES^2 encryption algorithm with CBC^3 variation.Constants.javafile
+over the network using the AES encryption algorithm with CBC variation. Constants.javafile
 is used to hold constants that are used repeatedly in the code to reduce code duplication and keep
 them in a single place for further refactoring.
 
-(^2) Advanced Encryption Standard
-(^3) Cipher Block Chaining
-
-
+![](images/Aspose.Words.2f3f1dc5-86a6-43ca-9989-9b74b9f623bd.006.jpeg)
 ```
 Figure 2: Whiteboard Client Architecture
 ```
@@ -178,12 +175,15 @@ the assigned thread to the thread pool for future clients to connect. Lastly, if
 the application, it sends an exit message to the server and the server, in turn, sends the force quit
 event to all clients since the manager has exited the application.
 
+![](images/Aspose.Words.2f3f1dc5-86a6-43ca-9989-9b74b9f623bd.007.jpeg)
 ```
 Figure 3: User Allocation Flow
 ```
+![](images/Aspose.Words.2f3f1dc5-86a6-43ca-9989-9b74b9f623bd.008.jpeg)
 ```
 Figure 4: User Removal Flow
 ```
+![](images/Aspose.Words.2f3f1dc5-86a6-43ca-9989-9b74b9f623bd.009.jpeg)
 ```
 Figure 5: Event Broadcast Flow
 ```
@@ -192,13 +192,13 @@ Figure 5: Event Broadcast Flow
 
 ### 6.1 TCP Connection
 
-The whiteboard client-server architecture uses TCP^4 for connection between the server and multiple
+The whiteboard client-server architecture uses TCP for connection between the server and multiple
 clients. This protocol was chosen because it requires a connection to transmit data which guarantees
 the delivery of data from one connected application to other. Since each request sent by a whiteboard
 client is important to acknowledge and respond to, guaranteed delivery is a huge advantage while
 using TCP. Once data is sent from one node, it also guarantees the sequencing of the data which cuts
 down on a lot of processing on both the server and the client-side. TCP also performs extensive
-error checking and acknowledgment of data which puts TCP over UDP^5 in terms of reliability.
+error checking and acknowledgment of data which puts TCP over UDP in terms of reliability.
 Lastly, Java has great support for TCP and it makes it easier to code and maintain for a small-scale
 application like the shared whiteboard.
 
@@ -218,26 +218,27 @@ make use of theExecutorServiceinterface for creating a thread pool. To fine-tune
 implementation we use theThreadPoolExecutor, which gives us a handle on the parameters like
 corePoolSize,maximumPoolSize, andkeepAliveTime.
 
+![](images/Aspose.Words.2f3f1dc5-86a6-43ca-9989-9b74b9f623bd.010.png)
 ```
 Figure 6: Executor Service Initialization
 ```
+![](images/Aspose.Words.2f3f1dc5-86a6-43ca-9989-9b74b9f623bd.011.jpeg)
 ```
 Figure 7: Executor Service Architecture
 ```
-(^4) Transmission Control Protocol
-(^5) User Datagram Protocol
 
 
 ### 6.3 Message Exchange (JSON & DTO)
 
-For exchanging requests and responses over the TCP network, the application makes use of JSON^6
+For exchanging requests and responses over the TCP network, the application makes use of JSON
 format which is used for serializing and transmitting structured data over the network. This format
 of message exchange was chosen as it creates a structured format that is also human-readable. It
-is also easy to read and write this format to a java class which is known as DTO^7. The JSON
+is also easy to read and write this format to a java class which is known as DTO. The JSON
 string received by the client and server is deserialized to theActionMessageDto.javafile and
 UserDto.javafile by using the Jackson Object Mapper, which is a lightweight JSON library for
 Java.
 
+![](images/Aspose.Words.2f3f1dc5-86a6-43ca-9989-9b74b9f623bd.012.png)
 ```
 Figure 8: String to DTO Transformation
 ```
@@ -252,29 +253,29 @@ triggered by the client by storing them in a concurrent queue. It then fetches t
 the queue and dispatches them to the server. We use Java’sConcurrentLinkedQueuefor achieving
 concurrency since multiple threads might be adding or accessing the queue at the same time.
 
+![](images/Aspose.Words.2f3f1dc5-86a6-43ca-9989-9b74b9f623bd.013.png)
 ```
 Figure 9: Java Concurrent Hash Map
 ```
+![](images/Aspose.Words.2f3f1dc5-86a6-43ca-9989-9b74b9f623bd.014.png)
 ```
 Figure 10: Java Concurrent Linked Queue
 ```
-(^6) Javascript Object Notation
-(^7) Data Transfer Object
-
 
 ### 6.5 Security
 
 The whiteboard clients encrypt the chat messages sent over the network and then decrypt the
 messages once received from other clients. The symmetric-key block cipher plays an important role
-in data encryption. It means that the same key is used for both encryption and decryption. AES^8
+in data encryption. It means that the same key is used for both encryption and decryption. AES
 is a widely used symmetric-key encryption algorithm, which is also used in this application. The
 AES algorithm is an iterative, symmetric-key block cipher that supports cryptographic keys (secret
-keys) of 128, 192, and 256 bits to encrypt and decrypt data in blocks of 128 bits. We use the CBC^9
-variation of AES, which uses an IV^10 to augment the encryption. First, CBC uses the plain-text
+keys) of 128, 192, and 256 bits to encrypt and decrypt data in blocks of 128 bits. We use the CBC
+variation of AES, which uses an IV to augment the encryption. First, CBC uses the plain-text
 block XOR with the IV. Then it encrypts the result to the cipher-text block. In the next block, it
 uses the encryption result to XOR with the plain-text block until the last block. This way we can
 secure sensitive data being sent across the network.
 
+![](images/Aspose.Words.2f3f1dc5-86a6-43ca-9989-9b74b9f623bd.015.jpeg)
 ```
 Figure 11: High Level AES Algorithm
 ```
@@ -288,15 +289,11 @@ implementation and provides more configuration and flexibility.
 
 ### 6.7 Maven Project Management
 
-Both the whiteboard server and client use a lot of externalJARsfor various functionalities defined
-above. We useMaven as our project management tool which allows a project to centralize the
+Both the whiteboard server and client use a lot of external JARs for various functionalities defined
+above. We use Maven as our project management tool which allows a project to centralize the
 dependencies of externalJARs and use them freely in our application. We also use theMaven
-Shade Pluginthat helps package the application into an executableJARwhich contains all the
-dependencies so that it can be executed on any machine with aJVM.
-
-(^8) Advanced Encryption Standard
-(^9) Cipher Block Chaining
-(^10) Initialization Vector
+Shade Plugin that helps package the application into an executableJAR which contains all the
+dependencies so that it can be executed on any machine with a JVM.
 
 
 ## 7 Further Improvements
@@ -305,11 +302,11 @@ The application has a lot of basic drawing functionalities which can be improved
 rubber-band effect, that allows a user to see the temporary image of the shape being created. We
 can also provide the functionality of selection particular shapes and moving and resizing them.
 In the whiteboard client instead of running two threads indefinitely we can make use of different
-messaging frameworks likeApache Kafka - a pub-sub^11 messaging system, which can allow us
+messaging frameworks likeApache Kafka - a pub-sub messaging system, which can allow us
 to make application more streamlined and use fewer resources. As of now our server only detects
 disconnections through graceful shutdowns of the client, we can implement a knock-knock server
 that keeps checking the client connection state and works accordingly. The whiteboard server can
-be improved by implementing SSL^12 sockets to enhance the security of the data transferred over the
+be improved by implementing SSL sockets to enhance the security of the data transferred over the
 network. We can also provide the server the functionality to handle different sessions of whiteboard
 with different managers.
 
@@ -325,10 +322,9 @@ of errors and reports them to the user with appropriate messages.
 
 ## 9 User Interface Components
 
+![](images/Aspose.Words.2f3f1dc5-86a6-43ca-9989-9b74b9f623bd.016.png)
 ```
 Figure 12: Whiteboard Client Interface
 ```
-(^11) Publisher-Subscriber
-(^12) Secured Socket Layer
 
 
