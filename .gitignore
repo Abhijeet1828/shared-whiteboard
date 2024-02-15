@@ -1,0 +1,10 @@
+
+whiteboard-client/.classpath
+
+whiteboard-client/.settings/
+
+*.class
+
+whiteboard-server/.settings/
+
+whiteboard-server/.classpath
